@@ -1,45 +1,58 @@
 #include <stdio.h>
 
-int damageGen1 (int att, int def);
-
-int main (void)
-{
-    typedef struct 
+typedef struct
     {
         char *name;
         int level;
-        int attack;
+        int atk;
         int def;
-    } pokemon;
+    } Pokemon;
 
-    typedef struct 
+typedef struct
     {
         char * name;
         int power;
         int accuracy;
-    } move;
+    } Move;
 
-    pokemon pikachu;
+int damageGen1 (Pokemon atk, Pokemon def, Move move);
+
+int main (void)
+{
+
+
+    Pokemon pikachu;
     pikachu.name = "Pikachu";
     pikachu.level = 100;
-    pikachu.attack = 100;
+    pikachu.atk = 100;
     pikachu.def = 100;
 
-    pokemon slowbro;
+    Pokemon slowbro;
     slowbro.name = "Slowbro";
     slowbro.level = 100;
-    slowbro.attack = 100;
+    slowbro.atk = 100;
     slowbro.def = 100;
 
+    Move thunderShock;
+    thunderShock.power = 40;
 
+    int damage = damageGen1(pikachu, slowbro, thunderShock);
+    printf("Damage caused: %i\n", damage);
+    return 0;
 }
 
-int damageGen1 (int att, int def)
+
+
+int damageGen1 (Pokemon atk, Pokemon def, Move move)
 {
+    int crit = 1;
+    int damage = ((((2 * atk.level * crit) / 5 + 2) * move.power * atk.atk / def.def) / 50 + 2) ;
+    return damage;
+
     // ((((2 * Level * Critical)/5 +2) * Power * A/D) / 50 + 2) * STAB * type1 * type2 * random
-    
+
     // WHERE:
-    
+
     // Level is the level of the attacking Pokémon.
     // Critical is 2 for a critical hit, and 1 otherwise.
     // A is the effective Attack stat of the attacking Pokémon if the used move is a physical move, or the effective Special stat of the attacking Pokémon if the used move is a special move (for a critical hit, all modifiers are ignored, and the unmodified Attack or Special is used instead). If either this or D are greater than 255, both are divided by 4 and rounded down.
