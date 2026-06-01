@@ -3,6 +3,8 @@
 typedef struct
     {
         char *name;
+        char* type1;
+        char* type2;
         int level;
         int atk;
         int def;
@@ -10,7 +12,8 @@ typedef struct
 
 typedef struct
     {
-        char * name;
+        char* name;
+        char* type;
         int power;
         int accuracy;
     } Move;
@@ -23,12 +26,14 @@ int main (void)
 
     Pokemon pikachu;
     pikachu.name = "Pikachu";
+    pikachu.type1 = "Electric";
     pikachu.level = 100;
     pikachu.atk = 100;
     pikachu.def = 100;
 
     Pokemon slowbro;
     slowbro.name = "Slowbro";
+    slowbro.type1 = "Water";
     slowbro.level = 100;
     slowbro.atk = 100;
     slowbro.def = 100;
@@ -46,8 +51,35 @@ int main (void)
 int damageGen1 (Pokemon atk, Pokemon def, Move move)
 {
     int crit = 1;
-    int damage = ((((2 * atk.level * crit) / 5 + 2) * move.power * atk.atk / def.def) / 50 + 2) ;
-    return damage;
+    int type1;
+    int type2 = 1;
+    float stab;
+    float random;
+
+    // Calculating STAB multiplier
+    if (atk.type1 == move.type)
+        stab = 1.5;
+
+    // Calculating Type 1 Effectiveness 
+    if (move.type == "Electric" && def.type1 == "Water")
+         type1 = 2;
+
+    // [To-do] Calculating Type 2 Effectiveness 
+
+    // [To-do] Calculating Crit. Multiplier
+
+    // Calculating damage
+    float damage = ((((2 * atk.level * crit) / 5 + 2) * move.power * atk.atk / def.def) / 50 + 2) * stab * type1 * type2;
+
+    // Adding randomness to damage
+    if (damage == 1)
+        random = 1;
+        else
+        {
+            // [To-do] Generate a random number between 217 and 255 inclusive, divide it by 255.
+        }
+
+    return damage*random;
 
     // ((((2 * Level * Critical)/5 +2) * Power * A/D) / 50 + 2) * STAB * type1 * type2 * random
 
