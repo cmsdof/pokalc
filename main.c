@@ -22,8 +22,11 @@ int damageGen1 (Pokemon atk, Pokemon def, Move move);
 
 int main (void)
 {
+    // [To-do] Get Pokemon Attacker, Defender names from user
 
+    // [To-do] Serve list of the Attacker's Moves from API 
 
+    // [To-do] Get Pokemon Stats from API
     Pokemon pikachu;
     pikachu.name = "Pikachu";
     pikachu.type1 = "Electric";
@@ -77,6 +80,7 @@ int damageGen1 (Pokemon atk, Pokemon def, Move move)
         else
         {
             // [To-do] Generate a random number between 217 and 255 inclusive, divide it by 255.
+
         }
 
     return damage*random;
